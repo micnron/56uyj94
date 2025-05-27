@@ -18,6 +18,23 @@
       font-size: 3em;
       font-weight: bold;
     }
+    .language-toggle {
+      text-align: center;
+      margin: 10px 0;
+    }
+    .language-toggle button {
+      background-color: #1a1d21;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    .language-toggle button:hover {
+      background-color: #2c313a;
+    }
     .hero-info {
       display: flex;
       justify-content: center;
@@ -75,62 +92,115 @@
 <body>
   <div class="hero-header">RYOTA</div>
 
-  <div class="hero-info">
-    <div>Tanque</div>
-    <div>Japão</div>
-    <div>Idade: 36</div>
+  <div class="language-toggle">
+    <button onclick="switchLanguage('pt')">Português</button>
+    <button onclick="switchLanguage('en')">English</button>
   </div>
 
-  <div class="section-title">HABILIDADES</div>
-  <div class="abilities">
-    <div class="ability" onclick="toggleDescription(this)">
-      <h3>Passiva – Luz Incisiva</h3>
-      <div class="ability-description">
-        As habilidades ofensivas de Ryota ignoram 50% da vida de barreiras ativas. Metade do dano atravessa a barreira e é aplicado diretamente ao alvo, enquanto a outra metade é absorvida. Efeitos secundários não são bloqueados.
-      </div>
-    </div>
-    <div class="ability" onclick="toggleDescription(this)">
-      <h3>Fragmento Rígido</h3>
-      <div class="ability-description">
-        Ryota dispara 3 fragmentos de luz sólida que explodem ao contato ou após 20 metros. Ideal para pressionar inimigos atrás de barreiras.
-      </div>
-    </div>
-    <div class="ability" onclick="toggleDescription(this)">
-      <h3>Barreira Prismática</h3>
-      <div class="ability-description">
-        Projeta uma barreira de luz prismática à frente, protegendo Ryota e aliados por alguns segundos. Pode ser cancelada manualmente.
-      </div>
-    </div>
-    <div class="ability" onclick="toggleDescription(this)">
-      <h3>Reforço Compartilhado</h3>
-      <div class="ability-description">
-        Concede escudos temporários a Ryota e ao aliado mais próximo na mira. Os escudos duram alguns segundos ou até serem destruídos.
-      </div>
-    </div>
-    <div class="ability" onclick="toggleDescription(this)">
-      <h3>Prismas Direcionais</h3>
-      <div class="ability-description">
-        Dispara 3 espinhos triangulares de luz. Ao acertar um inimigo, Ryota pode puxá-lo ou empurrá-lo, controlando seu posicionamento.
-      </div>
-    </div>
-    <div class="ability" onclick="toggleDescription(this)">
-      <h3>Ultimate – Cúpula Resoluta</h3>
-      <div class="ability-description">
-        Cria uma cúpula de energia prismática que empurra inimigos para fora ao ativar. Impede a entrada de inimigos e projéteis por 7 segundos, enquanto aliados podem entrar e sair livremente.
-      </div>
-    </div>
-  </div>
+  <div class="hero-info" id="hero-info"></div>
 
-  <div class="section-title">HISTÓRIA</div>
-  <div class="bio-section">
-    <p>Ryota cresceu em um mundo devastado pela guerra ômnica. Sem família, sem paz e sem saída, encontrou na Talon não uma causa, mas um propósito. Silencioso, letal e pragmático, Ryota se tornou um mercenário que luta não por ideologia, mas por sobrevivência — e por aqueles que, como ele, foram deixados para trás.</p>
-    <p>Dotado de uma tecnologia de luz sólida de uso militar, Ryota opera com precisão cirúrgica. A ausência de Baptiste deixou uma marca que nem ele nem Mauga admitem em voz alta. Ainda assim, Ryota continua — entre a lealdade, a culpa e a inevitabilidade de mais uma guerra.</p>
-  </div>
+  <div class="section-title" id="abilities-title"></div>
+  <div class="abilities" id="abilities"></div>
+
+  <div class="section-title" id="bio-title"></div>
+  <div class="bio-section" id="bio"></div>
 
   <script>
-    function toggleDescription(element) {
-      element.classList.toggle("active");
+    const data = {
+      pt: {
+        info: ['Tanque', 'Japão', 'Idade: 36'],
+        abilitiesTitle: 'HABILIDADES',
+        bioTitle: 'HISTÓRIA',
+        abilities: [
+          {
+            title: 'Passiva – Luz Incisiva',
+            desc: 'As habilidades ofensivas de Ryota ignoram 50% da vida de barreiras ativas. Metade do dano atravessa a barreira e é aplicado diretamente ao alvo, enquanto a outra metade é absorvida. Efeitos secundários não são bloqueados.'
+          },
+          {
+            title: 'Fragmento Rígido',
+            desc: 'Ryota dispara 3 fragmentos de luz sólida que explodem ao contato ou após 20 metros. Ideal para pressionar inimigos atrás de barreiras.'
+          },
+          {
+            title: 'Barreira Prismática',
+            desc: 'Projeta uma barreira de luz prismática à frente, protegendo Ryota e aliados por alguns segundos. Pode ser cancelada manualmente.'
+          },
+          {
+            title: 'Reforço Compartilhado',
+            desc: 'Concede escudos temporários a Ryota e ao aliado mais próximo na mira. Os escudos duram alguns segundos ou até serem destruídos.'
+          },
+          {
+            title: 'Prismas Direcionais',
+            desc: 'Dispara 3 espinhos triangulares de luz. Ao acertar um inimigo, Ryota pode puxá-lo ou empurrá-lo, controlando seu posicionamento.'
+          },
+          {
+            title: 'Ultimate – Cúpula Resoluta',
+            desc: 'Cria uma cúpula de energia prismática que empurra inimigos para fora ao ativar. Impede a entrada de inimigos e projéteis por 7 segundos, enquanto aliados podem entrar e sair livremente.'
+          }
+        ],
+        bio: '<p>Ryota cresceu em um mundo devastado pela guerra ômnica. Sem família, sem paz e sem saída, encontrou na Talon não uma causa, mas um propósito. Silencioso, letal e pragmático, Ryota se tornou um mercenário que luta não por ideologia, mas por sobrevivência — e por aqueles que, como ele, foram deixados para trás.</p><p>Dotado de uma tecnologia de luz sólida de uso militar, Ryota opera com precisão cirúrgica. A ausência de Baptiste deixou uma marca que nem ele nem Mauga admitem em voz alta. Ainda assim, Ryota continua — entre a lealdade, a culpa e a inevitabilidade de mais uma guerra.</p>'
+      },
+      en: {
+        info: ['Tank', 'Japan', 'Age: 36'],
+        abilitiesTitle: 'ABILITIES',
+        bioTitle: 'STORY',
+        abilities: [
+          {
+            title: 'Passive – Cutting Light',
+            desc: 'Ryota’s offensive abilities ignore 50% of active barrier health. Half of the damage bypasses the barrier and is applied directly to the target, while the other half is absorbed. Secondary effects are not blocked.'
+          },
+          {
+            title: 'Rigid Shard',
+            desc: 'Ryota fires 3 solid-light shards that explode on contact or after 20 meters. Ideal for pressuring enemies behind barriers.'
+          },
+          {
+            title: 'Prismatic Barrier',
+            desc: 'Projects a prismatic light barrier forward, protecting Ryota and allies for a few seconds. Can be manually canceled.'
+          },
+          {
+            title: 'Shared Reinforcement',
+            desc: 'Grants temporary shields to Ryota and the closest targeted ally. Shields last a few seconds or until destroyed.'
+          },
+          {
+            title: 'Directional Prisms',
+            desc: 'Fires 3 triangular light spikes. When hitting an enemy, Ryota can pull or push them, controlling their position.'
+          },
+          {
+            title: 'Ultimate – Resolute Dome',
+            desc: 'Creates a prismatic energy dome that pushes enemies outward on activation. Blocks enemy entry and projectiles for 7 seconds while allies can pass freely.'
+          }
+        ],
+        bio: '<p>Ryota grew up in a world devastated by the Omnic war. Without family, peace, or an escape, he found in Talon not a cause, but a purpose. Silent, lethal, and pragmatic, Ryota became a mercenary who fights not for ideology, but for survival — and for those, like him, who were left behind.</p><p>Equipped with military-grade solid-light technology, Ryota operates with surgical precision. The absence of Baptiste left a mark that neither he nor Mauga will admit out loud. Still, Ryota carries on — between loyalty, guilt, and the inevitability of another war.</p>'
+      }
+    };
+
+    let currentLang = 'pt';
+
+    function switchLanguage(lang) {
+      currentLang = lang;
+      const content = data[lang];
+
+      const infoDiv = document.getElementById('hero-info');
+      infoDiv.innerHTML = content.info.map(text => `<div>${text}</div>`).join('');
+
+      document.getElementById('abilities-title').textContent = content.abilitiesTitle;
+      document.getElementById('bio-title').textContent = content.bioTitle;
+
+      const abilitiesDiv = document.getElementById('abilities');
+      abilitiesDiv.innerHTML = '';
+      content.abilities.forEach(ability => {
+        const abilityDiv = document.createElement('div');
+        abilityDiv.className = 'ability';
+        abilityDiv.onclick = function() {
+          this.classList.toggle('active');
+        };
+        abilityDiv.innerHTML = `<h3>${ability.title}</h3><div class="ability-description">${ability.desc}</div>`;
+        abilitiesDiv.appendChild(abilityDiv);
+      });
+
+      document.getElementById('bio').innerHTML = content.bio;
     }
+
+    switchLanguage(currentLang);
   </script>
 </body>
 </html>
