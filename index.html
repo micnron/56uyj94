@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="pt-br">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +8,12 @@
     body {
       margin: 0;
       font-family: "Helvetica Neue", sans-serif;
-      background: linear-gradient(to bottom, #1f2a37, #111);
+      background-color: #0e1114;
       color: white;
     }
     .hero-header {
       text-align: center;
+      background: linear-gradient(to right, #1f2a37, #111);
       padding: 60px 20px 20px;
       font-size: 3em;
       font-weight: bold;
@@ -38,13 +40,28 @@
       padding: 10px 20px;
     }
     .ability {
-      background: #222;
+      background: #1a1d21;
       border-radius: 12px;
       padding: 20px;
-      width: 300px;
+      width: 200px;
+      text-align: center;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .ability:hover {
+      background: #2c313a;
     }
     .ability h3 {
-      margin-top: 0;
+      margin: 10px 0 5px;
+      font-size: 1em;
+    }
+    .ability-description {
+      display: none;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+    .ability.active .ability-description {
+      display: block;
     }
     .bio-section {
       max-width: 800px;
@@ -56,36 +73,64 @@
   </style>
 </head>
 <body>
-  <div class="hero-header">RYOTA</div>  <div class="hero-info">
+  <div class="hero-header">RYOTA</div>
+
+  <div class="hero-info">
     <div>Tanque</div>
-    <div>Desconhecido, Japão (anteriormente)</div>
-    <div>Idade: Desconhecida</div>
-  </div>  <div class="section-title">HABILIDADES</div>
+    <div>Japão</div>
+    <div>Idade: 36</div>
+  </div>
+
+  <div class="section-title">HABILIDADES</div>
   <div class="abilities">
-    <div class="ability">
-      <h3>Disparo Primal</h3>
-      <p>Atira fragmentos de luz sólida que explodem ao contato. Cada fragmento causa dano direto reduzido através de barreiras, seguido de uma explosão.</p>
+    <div class="ability" onclick="toggleDescription(this)">
+      <h3>Passiva – Luz Incisiva</h3>
+      <div class="ability-description">
+        As habilidades ofensivas de Ryota ignoram 50% da vida de barreiras ativas. Metade do dano atravessa a barreira e é aplicado diretamente ao alvo, enquanto a outra metade é absorvida. Efeitos secundários não são bloqueados.
+      </div>
     </div>
-    <div class="ability">
+    <div class="ability" onclick="toggleDescription(this)">
+      <h3>Fragmento Rígido</h3>
+      <div class="ability-description">
+        Ryota dispara 3 fragmentos de luz sólida que explodem ao contato ou após 20 metros. Ideal para pressionar inimigos atrás de barreiras.
+      </div>
+    </div>
+    <div class="ability" onclick="toggleDescription(this)">
+      <h3>Barreira Prismática</h3>
+      <div class="ability-description">
+        Projeta uma barreira de luz prismática à frente, protegendo Ryota e aliados por alguns segundos. Pode ser cancelada manualmente.
+      </div>
+    </div>
+    <div class="ability" onclick="toggleDescription(this)">
+      <h3>Reforço Compartilhado</h3>
+      <div class="ability-description">
+        Concede escudos temporários a Ryota e ao aliado mais próximo na mira. Os escudos duram alguns segundos ou até serem destruídos.
+      </div>
+    </div>
+    <div class="ability" onclick="toggleDescription(this)">
       <h3>Prismas Direcionais</h3>
-      <p>Dispara três lâminas prismáticas teleguiadas. Podem desviar obstáculos e aplicar dano consistente, atravessando escudos com dano reduzido.</p>
+      <div class="ability-description">
+        Dispara 3 espinhos triangulares de luz. Ao acertar um inimigo, Ryota pode puxá-lo ou empurrá-lo, controlando seu posicionamento.
+      </div>
     </div>
-    <div class="ability">
-      <h3>Gravidade Reversa</h3>
-      <p>Cria um campo que empurra ou puxa inimigos ao seu redor. Ideal para desposicionar tanques e quebrar formações.</p>
+    <div class="ability" onclick="toggleDescription(this)">
+      <h3>Ultimate – Cúpula Resoluta</h3>
+      <div class="ability-description">
+        Cria uma cúpula de energia prismática que empurra inimigos para fora ao ativar. Impede a entrada de inimigos e projéteis por 7 segundos, enquanto aliados podem entrar e sair livremente.
+      </div>
     </div>
-    <div class="ability">
-      <h3>Pressão Constante (Passiva)</h3>
-      <p>Todos os ataques de Ryota ignoram parcialmente barreiras. 50% do dano é aplicado diretamente à vida dos inimigos atrás de escudos.</p>
-    </div>
-    <div class="ability">
-      <h3>Colapso Prismático (Ultimate)</h3>
-      <p>Libera uma esfera de luz sólida instável que atrai os inimigos e explode com força massiva. Perfeita para controle de área.</p>
-    </div>
-  </div>  <div class="section-title">HISTÓRIA</div>
+  </div>
+
+  <div class="section-title">HISTÓRIA</div>
   <div class="bio-section">
     <p>Ryota cresceu em um mundo devastado pela guerra ômnica. Sem família, sem paz e sem saída, encontrou na Talon não uma causa, mas um propósito. Silencioso, letal e pragmático, Ryota se tornou um mercenário que luta não por ideologia, mas por sobrevivência — e por aqueles que, como ele, foram deixados para trás.</p>
     <p>Dotado de uma tecnologia de luz sólida de uso militar, Ryota opera com precisão cirúrgica. A ausência de Baptiste deixou uma marca que nem ele nem Mauga admitem em voz alta. Ainda assim, Ryota continua — entre a lealdade, a culpa e a inevitabilidade de mais uma guerra.</p>
   </div>
+
+  <script>
+    function toggleDescription(element) {
+      element.classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
